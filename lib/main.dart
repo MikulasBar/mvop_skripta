@@ -9,7 +9,6 @@ class MainApp extends StatelessWidget {
 
   // comment
 
-
   // different commit
 
   @override

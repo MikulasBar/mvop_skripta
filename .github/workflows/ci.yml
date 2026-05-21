@@ -1,9 +1,7 @@
-name: CI
+name: Build
 
 on:
   push:
-    branches:
-      - cicd
   pull_request:
 
 jobs:
@@ -25,3 +23,16 @@ jobs:
 
       - name: Check formatting
         run: dart format --set-exit-if-changed lib
+
+      - name: Test
+        run: flutter test
+
+      - name: build
+        if: github.ref_name == 'cicd'
+        run: flutter build apk --debug
+
+      - name: Upload artifact
+        if: github.ref_name == 'cicd'
+        uses: actions/upload-artifact@v4
+        with:
+          path: build/app/outputs/apk/debug/app-debug.apk
